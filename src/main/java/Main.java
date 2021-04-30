@@ -7,20 +7,20 @@ public class Main {
         String opponentName = "Admiral Red Beard";
         String difficulty = "HARD";
         int choice = 0;
-        int boardLength = 6;
-        int boardHeigth = 8;
+        int Xcoord = 6;
+        int Ycoord = 8;
 
         while (choice != -1) {
             choice = menu(opponentName, difficulty);
             switch (choice) {
                 case 1:
-                    Board opponentBoard = randomBoardGenerator(boardLength,boardHeigth/2,3);
+                    Board opponentBoard = randomBoardGenerator(Xcoord,Ycoord/2,3);
 
-                    Board userBoard = userBoardPlacement(boardLength, boardHeigth/2,3);
+                    Board userBoard = userBoardPlacement(Xcoord, Ycoord/2,3);
 
                     Board gameBoard =  joinUserOpponentBoard(opponentBoard,userBoard);
+
                     gameBoard.showGameBoard();
-                    gameBoard.showPersonalBoard();
 
                     switch (difficulty) {
                         case "HARD":
@@ -44,7 +44,7 @@ public class Main {
                     }
                     break;
                 case 3:
-                    howToPlay(boardLength, boardHeigth);
+                    howToPlay(Xcoord, Ycoord);
                     scanner.nextLine();
                     break;
                 case 4:
@@ -100,10 +100,10 @@ public class Main {
         return myArr;
     }
 
-    public static void howToPlay(int boardLength, int boardHeigth) {
+    public static void howToPlay(int Xcoord, int Ycoord) {
         System.out.println("\nHow to play section :\n");
         System.out.println("This is a Single Player BattleShip game. Every player has 2 battleships, a big one (SSSS) and a small one (SS) ");
-        System.out.println("and a board which has " + boardLength + "x" + boardHeigth + " size. like this :");
+        System.out.println("and a board which has " + Xcoord + "x" + Ycoord + " size. like this :");
         System.out.println("\n   Admiral Red Beard\n");
         System.out.println("        A B C D E F \n        ----------- \n    1 | O - O O - O\n    2 | O O X O O O\n    3 | O O X O O O\n      | -----------\n    4 | O O S O O O\n    5 | O O S O S S\n    6 | O O X O O O\n");
         System.out.println("            You       ");
@@ -125,8 +125,8 @@ public class Main {
     public static void easyGame(String opponentName) {
     }
 
-    public static Board randomBoardGenerator(int boardLength, int boardHeigth, int shipNumber) {
-        Board myBoard = new Board(boardLength, boardHeigth);
+    public static Board randomBoardGenerator(int Xcoord, int Ycoord, int shipNumber) {
+        Board myBoard = new Board(Xcoord, Ycoord);
         Random rand = new Random();
         int placedShips = 0;
         int x,y;
@@ -134,8 +134,8 @@ public class Main {
 
         while(placedShips < shipNumber){
 
-            x = rand.nextInt(boardLength);
-            y = rand.nextInt(boardHeigth);
+            x = rand.nextInt(Xcoord);
+            y = rand.nextInt(Ycoord);
 
             if(myBoard.board[x][y] == 'O'){
 
@@ -143,7 +143,7 @@ public class Main {
                 switch (direction){
                     case 0:
                         //right
-                        if(x+1 < boardLength){
+                        if(x+1 < Xcoord){
                             if (myBoard.board[x+1][y] == 'O'){
                                 myBoard.board[x][y] = 'S';
                                 myBoard.board[x+1][y] = 'S';
@@ -153,7 +153,7 @@ public class Main {
                         break;
                     case 1:
                         //up
-                        if(y+1 < boardHeigth){
+                        if(y+1 < Ycoord){
                             if (myBoard.board[x][y+1] == 'O'){
                                 myBoard.board[x][y] = 'S';
                                 myBoard.board[x][y+1] = 'S';
@@ -187,8 +187,8 @@ public class Main {
         return myBoard;
     }
 
-    public static Board userBoardPlacement(int boardLength, int boardHeigth, int shipNumber){
-        Board userBoard = new Board(boardLength,boardHeigth);
+    public static Board userBoardPlacement(int Xcoord, int Ycoord, int shipNumber){
+        Board userBoard = new Board(Xcoord,Ycoord);
         Scanner scanner = new Scanner(System.in);
         int placedShips = 0;
         boolean letterFlag = true;
@@ -233,7 +233,7 @@ public class Main {
                 }
                 y = Integer.parseInt(String.valueOf(choice.charAt(1)));
                 y--;
-                if (y < boardHeigth && y >= 0)
+                if (y < Ycoord && y >= 0)
                     numberFlag = true;
                 else
                     numberFlag = false;
@@ -242,16 +242,16 @@ public class Main {
                     if (userBoard.board[x][y] == 'O'){
                         System.out.println("Which direction do you want to place this ship?");
                         System.out.println("1. Right");
-                        System.out.println("2. Up");
+                        System.out.println("2. Down");
                         System.out.println("3. Left");
-                        System.out.println("4. Down");
+                        System.out.println("4. Up");
 
                         direction = Integer.parseInt(String.valueOf(scanner.nextLine()));
                         if(direction < 4 && direction >= 0){
                             switch (direction){
                                 case 1:
                                     //right
-                                    if(x+1 < boardLength){
+                                    if(x+1 < Xcoord){
                                         if (userBoard.board[x+1][y] == 'O'){
                                             userBoard.board[x][y] = 'S';
                                             userBoard.board[x+1][y] = 'S';
@@ -261,8 +261,8 @@ public class Main {
                                     }
                                     break;
                                 case 2:
-                                    //up
-                                    if(y+1 < boardHeigth){
+                                    //down
+                                    if(y+1 < Ycoord){
                                         if (userBoard.board[x][y+1] == 'O'){
                                             userBoard.board[x][y] = 'S';
                                             userBoard.board[x][y+1] = 'S';
@@ -283,7 +283,7 @@ public class Main {
                                     }
                                     break;
                                 default:
-                                    //down
+                                    //up
                                     if(y-1 >= 0){
                                         if (userBoard.board[x][y-1] == 'O'){
                                             userBoard.board[x][y] = 'S';
@@ -307,16 +307,21 @@ public class Main {
     }
 
     public static Board joinUserOpponentBoard(Board opponentBoard, Board userBoard){
-        int boardHeigth = opponentBoard.boardHeigth*2;
-        Board gameBoard = new Board(opponentBoard.boardLength,boardHeigth);
+        int Ycoord = opponentBoard.Ycoord*2;
+        int Xcoord = opponentBoard.Xcoord;
+        Board gameBoard = new Board(Xcoord,Ycoord);
 
-        for(int x = 0; x < gameBoard.boardLength; x++)
-            for (int y = 0; y < gameBoard.boardHeigth; y++)
-                if(y < opponentBoard.boardHeigth)
-                    gameBoard.board[x][y] = opponentBoard.board[x][y];
-                else
-                    gameBoard.board[x+ opponentBoard.boardHeigth][y+opponentBoard.boardHeigth] = userBoard.board[x][y];
+        for (int i = 0;i < Ycoord/2;i++ ){
+            for (int j = 0;j < Xcoord;j++ ){
+                    gameBoard.board[j][i] = opponentBoard.board[j][i];
+            }
+        }
 
+        for (int i = opponentBoard.Ycoord; i < Ycoord; i++ ){
+            for (int j = 0;j < Xcoord;j++ ){
+                gameBoard.board[j][i] = userBoard.board[j][i-(opponentBoard.Ycoord)];
+            }
+        }
         return gameBoard;
     }
 }
