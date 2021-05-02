@@ -25,9 +25,9 @@ In the game board symbols & meanings are :
     
 There Are 3 different opponent :
 
-     Admiral Red Beard, he will burry you in deep oceans!                            ---> Difficulty : *****
-     Lieutenant Harvy, he maybe seems not so hard but has own tricks to defeat you!  ---> Difficulty : ***
-     Seaman Mason, he is a newbie in navy, but try his best                          ---> Difficulty : *
+     Admiral Red Beard, he will burry you in deep oceans!   ---> Difficulty : *****
+     Lieutenant Harvy, has his own tricks to defeat you!    ---> Difficulty : ***
+     Seaman Mason, he is a newbie in navy, but try his best ---> Difficulty : *
 
 To playing, simply choose option 1 in the main menu, after that you have to place your 3 ships. To place give the starting coordinate, then give the direction and your ship is placed. The game goes like you and your opponent Captain will attack to coordinates 1 by 1. The captain who destroys all of his opponents ships will win.
 
